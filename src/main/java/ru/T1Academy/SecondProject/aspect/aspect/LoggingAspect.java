@@ -6,7 +6,6 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.T1Academy.SecondProject.aspect.config.LoggingAspectProperties;
@@ -18,7 +17,6 @@ import java.util.Arrays;
 
 @Slf4j
 @Aspect
-@Component
 public class LoggingAspect {
 
     private final LoggingAspectProperties loggingAspectProperties;
@@ -58,8 +56,7 @@ public class LoggingAspect {
 
     @Before(value = "@within(ru.T1Academy.SecondProject.aspect.annotation.LoggingBefore)")
     public void loggingBefore(JoinPoint joinPoint) {
-        if(isApiEndpointMethod(joinPoint))
-        {
+        if(isApiEndpointMethod(joinPoint)) {
             loggingAspect("Метод: {}->{}, запустился с аргументами: {}.",
                     ((MethodSignature) joinPoint.getSignature()).getMethod().getDeclaringClass().getSimpleName(),
                     joinPoint.getSignature().getName(),
@@ -71,8 +68,7 @@ public class LoggingAspect {
             value = "@annotation(ru.T1Academy.SecondProject.aspect.annotation.LoggingAfterThrowing)",
             throwing = "exception")
     public void loggingAfterThrowing(JoinPoint joinPoint, Exception exception) {
-        if(isApiEndpointMethod(joinPoint))
-        {
+        if(isApiEndpointMethod(joinPoint)) {
             loggingAspect("Метод: {}->{}, бросил ошибку: {}.",
                     ((MethodSignature) joinPoint.getSignature()).getMethod().getDeclaringClass().getSimpleName(),
                     joinPoint.getSignature().getName(),
@@ -84,8 +80,7 @@ public class LoggingAspect {
             value = "@annotation(ru.T1Academy.SecondProject.aspect.annotation.LoggingAfterReturning)",
             returning = "result")
     public void loggingAfterReturning(JoinPoint joinPoint, Object result) {
-        if(isApiEndpointMethod(joinPoint))
-        {
+        if(isApiEndpointMethod(joinPoint)) {
             loggingAspect("Метод: {}->{}, вернул: {}.",
                     ((MethodSignature) joinPoint.getSignature()).getMethod().getDeclaringClass().getSimpleName(),
                     joinPoint.getSignature().getName(),
